@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -x
+
+# Find available port to run server on
+port=$(find_port ${host})
+export RSTUDIO_PASSWORD="$(create_passwd 16)"
+
+<%-
+  require 'securerandom'
+  csrftoken = SecureRandom.uuid
+-%>
+export csrf_token="<%= csrftoken %>"
+

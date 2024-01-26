@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -x
+
+workdir="<%= session.staged_root %>"
+mkdir -p -m 700 ${workdir}/run ${workdir}/tmp ${workdir}/var/lib/rstudio-server
+
+cat > ${workdir}/database.conf <<END
+provider=sqlite
+directory=/var/lib/rstudio-server
+END
+
+singularity exec \
+    --cleanenv \
+    --env OMP_NUM_THREADS=<%= context.cpus_core %> \
+    --env RSTUDIO_SESSION_TIMEOUT=0 \
+    --env USER=$(id -un) \
+    --env PASSWORD=${RSTUDIO_PASSWORD} \
+    --bind "${workdir}/run:/run" \
+    --bind "${workdir}/tmp:/tmp" \
+    --bind "${workdir}/database.conf:/etc/rstudio/database.conf" \
+    --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
+    ~/scratch/ngs.sif \
+      /usr/lib/rstudio-server/bin/rserver \
+        --www-port=${port} \
+        --auth-none=0 \
+        --auth-pam-helper-path=pam-helper \
+        --auth-stay-signed-in-days=2 \
+        --auth-timeout-minutes=0 \
+        --server-user="$USER"
+printf 'rserver exited' 1>&2
+
+
+
+
+
