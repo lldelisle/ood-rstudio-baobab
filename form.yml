@@ -5,6 +5,7 @@ form:
   - mem_gb
   - cpus_core
   - partition_name
+  - image
 attributes:
   time_h:
     widget: "number_field"
@@ -13,30 +14,47 @@ attributes:
     min: 1
     max: 10
     step: 1
+
   mem_gb:
     widget: "number_field"
     label: "Memory to allocate [GB]"
     value: 4
     min: 4
-    max: 128
+    max: 32
     step: 4
-  cpus_core:
+    
+  cpus:
     widget: "number_field"
     label: "Number of core"
     value: 2
     min: 1
     max: 16
     step: 1
-  partition_name:
+
+  partition:
     widget: select
-    label: "partition name to use"
+    label: "Partition name to use"
     value: "shared-cpu"
-    help: |
-      - **shared-cpu** - at most 12 hours, up to 16 cores, up to 32Gb memory
-      - **shared-bigmem** - at most 12 hours, up to 16 cores, up to 256Gb memory
     options:
-      - [ "shared-cpu", "shared-cpu" ]
-      - [ "shared-bigmem", "shared-bigmem" ]
-      
+      - [ 
+            "shared-cpu", 
+            "shared-cpu", 
+            data-max-cpus-core: 16,
+            data-max-mem-gb: 32,
+        ]
+      - [
+            "shared-bigmem", 
+            "shared-bigmem",
+            data-max-cpus-core: 16,
+            data-max-mem-gb: 512,
+        ]
+
+  image:
+    widget: select
+    label: "Singularity image to run"
+    value: "BioinfoSupport/ngs:v1.0"
+    options:
+      - [ "docker://BioinfoSupport/ngs:v1.0", "docker://BioinfoSupport/ngs:v1.0" ]
+      - [ "docker://bioconductor/bioconductor_docker:RELEASE_3_18", "docker://bioconductor/bioconductor_docker:RELEASE_3_18" ]
       
       
