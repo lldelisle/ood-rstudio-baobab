@@ -12,7 +12,6 @@ logger-type=file
 log-dir=/log
 END
 
-#--bind "${workdir}/logging.conf:/etc/rstudio/logging.conf" \
 singularity exec \
     --cleanenv \
     --env OMP_NUM_THREADS=<%= context.cpus_core %> \
@@ -23,11 +22,12 @@ singularity exec \
     --bind "${workdir}/tmp:/tmp" \
     --bind "${workdir}/log:/log" \
     --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
+    --bind "${workdir}/logging.conf:/etc/rstudio/logging.conf" \
     ~/scratch/ngs.sif \
       /usr/lib/rstudio-server/bin/rserver \
         --www-port=${port} \
-        --auth-none=0 \
-        --auth-pam-helper-path=${workdir}/bin/auth \
+	--auth-none=0 \
+	--auth-pam-helper-path=${workdir}/bin/auth \
         --auth-encrypt-password=0 \
         --auth-stay-signed-in-days=2 \
         --auth-timeout-minutes=0 \
