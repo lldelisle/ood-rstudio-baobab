@@ -3,14 +3,7 @@
 set -x
 
 workdir="<%= session.staged_root %>"
-mkdir -p -m 700 ${workdir}/run ${workdir}/tmp ${workdir}/log ${workdir}/var/lib/rstudio-server
-
-cat > ${workdir}/logging.conf <<END
-[*]
-log-level=debug
-logger-type=file
-log-dir=/log
-END
+mkdir -p -m 700 ${workdir}/run ${workdir}/var/lib/rstudio-server
 
 singularity exec \
     --cleanenv \
@@ -18,18 +11,11 @@ singularity exec \
     --env RSTUDIO_SESSION_TIMEOUT=0 \
     --env USER=$(id -un) \
     --env PASSWORD=${RSTUDIO_PASSWORD} \
+    --bind "/scratch:/tmp" \
     --bind "${workdir}/run:/run" \
-    --bind "${workdir}/tmp:/tmp" \
-    --bind "${workdir}/log:/log" \
     --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
-    --bind "${workdir}/logging.conf:/etc/rstudio/logging.conf" \
     ~/scratch/ngs.sif \
     rserver \
         --www-port=${port} \
         --server-user="$USER"
-
-
-
-
-
 
