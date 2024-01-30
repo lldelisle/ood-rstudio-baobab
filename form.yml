@@ -52,10 +52,10 @@ attributes:
   image:
     widget: select
     label: "Singularity image to run"
-    value: "~/scratch/ngs.sif"
+    value: "/home/prados/scratch/ngs.sif"
     options:
       - [ "/home/prados/scratch/ngs.sif", "/home/prados/scratch/ngs.sif" ]
-      - [ "docker://BioinfoSupport/ngs:v1.1", "docker://BioinfoSupport/ngs:v1.1" ]
+      - [ "docker://unigebsp/ngs:v1.1", "docker://unigebsp/ngs:v1.1" ]
       - [ "docker://bioconductor/bioconductor_docker:RELEASE_3_18", "docker://bioconductor/bioconductor_docker:RELEASE_3_18" ]
       
       
