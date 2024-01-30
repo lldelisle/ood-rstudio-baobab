@@ -49,9 +49,9 @@ attributes:
   image:
     widget: select
     label: "Singularity image to run"
-    value: "/home/prados/scratch/ngs.sif"
+    value: "/home/prados/ngs_v1.1"
     options:
-      - [ "/home/prados/scratch/ngs.sif", "/home/prados/scratch/ngs.sif" ]
+      - [ "/home/prados/ngs_v1.1.sif", "/home/prados/ngs_v1.1.sif" ]
       - [ "docker://unigebsp/ngs:v1.1", "docker://unigebsp/ngs:v1.1" ]
       - [ "docker://bioconductor/bioconductor_docker:RELEASE_3_18", "docker://bioconductor/bioconductor_docker:RELEASE_3_18" ]
       
