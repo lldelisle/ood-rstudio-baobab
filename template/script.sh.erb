@@ -9,8 +9,8 @@ singularity exec \
     --cleanenv \
     --env OMP_NUM_THREADS=<%= context.cpus_core %> \
     --env RSTUDIO_SESSION_TIMEOUT=0 \
-    --env USER=$(id -un) \
-    --env PASSWORD=${RSTUDIO_PASSWORD} \
+    --env USER="$(id -un)" \
+    --env PASSWORD="${password}" \
     --bind "/scratch:/tmp" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
