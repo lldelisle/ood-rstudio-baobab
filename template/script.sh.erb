@@ -7,7 +7,7 @@ mkdir -p -m 700 ${workdir}/run ${workdir}/var/lib/rstudio-server
 
 singularity exec \
     --cleanenv \
-    --env OMP_NUM_THREADS=<%= context.cpus_core %> \
+    --env OMP_NUM_THREADS=<%= context.cpus %> \
     --env RSTUDIO_SESSION_TIMEOUT=0 \
     --env USER="$(id -un)" \
     --env PASSWORD="${password}" \

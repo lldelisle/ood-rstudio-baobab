@@ -1,19 +1,16 @@
 ---
 cluster: "baobab"
 form:
-  - time_h
-  - mem_gb
-  - cpus_core
-  - partition_name
   - image
+  - partition
+  - time
+  - mem_gb
+  - cpus
 attributes:
-  time_h:
-    widget: "number_field"
-    label: "Running time [hours]"
-    value: 1
-    min: 1
-    max: 10
-    step: 1
+  time:
+    widget: "text_field"
+    label: "Running time [format: 01:00:00]"
+    value: "00:15:00"
 
   mem_gb:
     widget: "number_field"
@@ -26,27 +23,27 @@ attributes:
   cpus:
     widget: "number_field"
     label: "Number of core"
-    value: 2
+    value: 1
     min: 1
     max: 16
     step: 1
 
   partition:
     widget: select
-    label: "Partition name to use"
-    value: "shared-cpu"
+    label: "Partition"
+    value: "debug-cpu"
     options:
       - [ 
+            "debug-cpu", 
+            "debug-cpu" 
+        ]    
+      - [ 
             "shared-cpu", 
-            "shared-cpu", 
-            data-max-cpus-core: 16,
-            data-max-mem-gb: 32,
+            "shared-cpu"
         ]
       - [
             "shared-bigmem", 
-            "shared-bigmem",
-            data-max-cpus-core: 16,
-            data-max-mem-gb: 512,
+            "shared-bigmem"
         ]
 
   image:
