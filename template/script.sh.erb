@@ -24,13 +24,8 @@ singularity exec \
     --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
     --bind "${workdir}/logging.conf:/etc/rstudio/logging.conf" \
     ~/scratch/ngs.sif \
-      /usr/lib/rstudio-server/bin/rserver \
+    rserver \
         --www-port=${port} \
-	--auth-none=0 \
-	--auth-pam-helper-path=${workdir}/bin/auth \
-        --auth-encrypt-password=0 \
-        --auth-stay-signed-in-days=2 \
-        --auth-timeout-minutes=0 \
         --server-user="$USER"
 
 
