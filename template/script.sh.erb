@@ -14,7 +14,7 @@ singularity exec \
     --bind "/scratch:/tmp" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
-    ~/scratch/ngs.sif \
+    "<%= context.image %>" \
     rserver \
         --www-port=${port} \
         --server-user="$USER"
