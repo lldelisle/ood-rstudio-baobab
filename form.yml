@@ -10,7 +10,7 @@ attributes:
   time:
     widget: "text_field"
     label: "Running time [format: 01:00:00]"
-    value: "00:15:00"
+    value: "02:00:00"
 
   mem_gb:
     widget: "number_field"
@@ -31,27 +31,18 @@ attributes:
   partition:
     widget: select
     label: "Partition"
-    value: "debug-cpu"
+    value: "shared-cpu"
     options:
-      - [ 
-            "debug-cpu", 
-            "debug-cpu" 
-        ]    
-      - [ 
-            "shared-cpu", 
-            "shared-cpu"
-        ]
-      - [
-            "shared-bigmem", 
-            "shared-bigmem"
-        ]
-
+      - [ "shared-cpu", "shared-cpu" ]
+      - [ "debug-cpu", "debug-cpu" ]
+      - [ "shared-bigmem", "shared-bigmem"]
+      
   image:
     widget: select
     label: "Singularity image to run"
-    value: "/home/prados/ngs_v1.1"
+    value: "ngs_v1.1.sif"
     options:
-      - [ "/home/prados/ngs_v1.1.sif", "/home/prados/ngs_v1.1.sif" ]
+      - [ "ngs_v1.1.sif", "/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif" ]
       - [ "docker://unigebsp/ngs:v1.1", "docker://unigebsp/ngs:v1.1" ]
       - [ "docker://bioconductor/bioconductor_docker:RELEASE_3_18", "docker://bioconductor/bioconductor_docker:RELEASE_3_18" ]
       
