@@ -5,7 +5,7 @@ subcategory: Servers
 role: batch_connect
 description: |
   The [Bioinformatics Support Platform] has developped this app for UNIGE community.
-  It can launch a [RStudio Server], an IDE for [R] on Baobab, the [HPC cluster of the university].
+  It can launch a [RStudio Server], an IDE for [R] on Baobab (the [HPC cluster of the university]).
   The server is embedded into a flexible [singularity] container.
   The code is available on [GitHub].
 
