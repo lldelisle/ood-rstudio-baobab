@@ -1,5 +1,7 @@
 # ood-rstudio-baobab
 
+This repository contains an OpenOnDemand app for Baobab (the [HPC cluster of the University of Geneva](https://www.unige.ch/eresearch/en/services/hpc/)).
+It can launch a [RStudio Server] on a node, embedded into a flexible singularity container.
 
 # Installation
 
