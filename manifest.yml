@@ -7,6 +7,6 @@ description: |
   This app was developped for the UNIGE community by the [Bioinformatics Support Platform].
   It can launch [RStudio Server], an IDE for [R] on Baobab HPC cluster.
 
-  [Bioinformatics Support Platform]: https://www.unige.ch/medicine/bioinformatics/
+  [Bioinformatics Support Platform]: https://www.unige.ch/medecine/bioinformatics/
   [RStudio Server]: https://www.rstudio.com/products/rstudio-server/
   [R]: https://www.r-project.org/
