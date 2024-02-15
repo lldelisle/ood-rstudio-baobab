@@ -4,7 +4,9 @@ category: Interactive Apps
 subcategory: Servers
 role: batch_connect
 description: |
-  This app will launch [RStudio Server] an IDE for [R] on the Baobab cluster.
+  This app was developped for the UNIGE community by the [Bioinformatics Support Platform].
+  It can launch [RStudio Server], an IDE for [R] on Baobab HPC cluster.
 
+  [Bioinformatics Support Platform]: https://www.unige.ch/medicine/bioinformatics/
   [RStudio Server]: https://www.rstudio.com/products/rstudio-server/
   [R]: https://www.r-project.org/
