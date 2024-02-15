@@ -12,6 +12,6 @@ description: |
   [Bioinformatics Support Platform]: https://www.unige.ch/medecine/bioinformatics/
   [RStudio Server]: https://www.rstudio.com/products/rstudio-server/
   [R]: https://www.r-project.org/
-  [Baobab]: https://www.unige.ch/eresearch/en/services/hpc/
-  [HPC cluster of the university]: https://singularityhub.github.io
+  [HPC cluster of the university]: https://www.unige.ch/eresearch/en/services/hpc/
+  [singularity]: https://singularityhub.github.io
   [GitHub]: https://github.com/BioinfoSupport/ood-rstudio-baobab
