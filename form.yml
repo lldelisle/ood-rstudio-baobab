@@ -34,7 +34,6 @@ attributes:
     value: "shared-cpu"
     options:
       - [ "shared-cpu", "shared-cpu" ]
-      - [ "debug-cpu", "debug-cpu" ]
       - [ "shared-bigmem", "shared-bigmem"]
       
   image:
@@ -43,7 +42,8 @@ attributes:
     value: "ngs_v1.1.sif"
     options:
       - [ "ngs_v1.1.sif", "/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif" ]
-      - [ "docker://unigebsp/ngs:v1.1", "docker://unigebsp/ngs:v1.1" ]
+      - [ "docker://unigebsp/ngs", "docker://unigebsp/ngs" ]
       - [ "docker://bioconductor/bioconductor_docker:RELEASE_3_18", "docker://bioconductor/bioconductor_docker:RELEASE_3_18" ]
+      - [ "docker://rocker/rstudio:4.3.2", "docker://rocker/rstudio;4.3.2" ]
       
       

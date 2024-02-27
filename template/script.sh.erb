@@ -12,7 +12,7 @@ singularity exec \
     --env USER="$(id -un)" \
     --env PASSWORD="${password}" \
     --bind "/scratch:/tmp" \
-    --bind "/acanas/m-BioinfoSupport/prados" \
+    --bind "/acanas/m-BioinfoSupport" \
     --bind "$(realpath ~/scratch)" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
