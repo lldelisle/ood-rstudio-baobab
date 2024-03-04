@@ -21,7 +21,7 @@ singularity exec \
     "<%= context.image %>" \
     rserver \
         --www-port=${port} \
-        --server-user="$USER"
+        --server-user="$USER" \
         --auth-none=0 \
         --auth-pam-helper-path=pam-helper \
         --auth-stay-signed-in-days=30 \
