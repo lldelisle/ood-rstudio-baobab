@@ -3,21 +3,27 @@
 set -x
 
 workdir="<%= session.staged_root %>"
-mkdir -p -m 700 ${workdir}/run ${workdir}/var/lib/rstudio-server
+mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var/lib/rstudio-server
 
 singularity exec \
     --cleanenv \
     --env OMP_NUM_THREADS=<%= context.cpus %> \
     --env RSTUDIO_SESSION_TIMEOUT=0 \
     --env USER="$(id -un)" \
-    --env PASSWORD="${password}" \
+    --env PASSWORD="${RSTUDIO_PASSWORD}" \
     --bind "/scratch:/tmp" \
     --bind "/acanas/m-BioinfoSupport" \
     --bind "$(realpath ~/scratch)" \
     --bind "${workdir}/run:/run" \
-    --bind "${workdir}/var/lib/rstudio-server:/var/lib/rstudio-server" \
+    --bind "${workdir}/var-lib-rstudio-server:/var/lib/rstudio-server" \
+    --bind "${workdir}/etc/logging.conf:/etc/rstudio/logging.conf \
+    --bind "${workdir}/etc/database.conf:/etc/rstudio/database.conf \
     "<%= context.image %>" \
     rserver \
         --www-port=${port} \
         --server-user="$USER"
-
+        --auth-none=0 \
+        --auth-pam-helper-path=pam-helper \
+        --auth-stay-signed-in-days=30 \
+        --auth-timeout-minutes=0 \
+        --rsession-path=/usr/lib/rstudio-server/bin/rsession
