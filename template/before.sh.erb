@@ -5,5 +5,6 @@ set -x
 # Find available port to run server on
 port="$(find_port ${host})"
 password="$(create_passwd 16)"
-export RSTUDIO_PASSWORD="${password}"
+csrf_token="<%= SecureRandom.uuid %>"
 
+export RSTUDIO_PASSWORD="${password}"
