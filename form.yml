@@ -43,6 +43,7 @@ attributes:
     help: |
       Example value:
       
+      - `/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif`
       - `docker://unigebsp/ngs`
       - `docker://bioconductor/bioconductor_docker:RELEASE_3_18`
       - `docker://rocker/rstudio:4.3.2`
