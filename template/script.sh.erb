@@ -3,7 +3,7 @@
 set -x
 
 workdir="<%= session.staged_root %>"
-mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var/lib/rstudio-server
+mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var-lib-rstudio-server
 
 singularity exec \
     --cleanenv \
