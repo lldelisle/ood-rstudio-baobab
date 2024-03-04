@@ -35,15 +35,20 @@ attributes:
     options:
       - [ "shared-cpu", "shared-cpu" ]
       - [ "shared-bigmem", "shared-bigmem"]
-      
+
   image:
-    widget: select
+    widget: "text_field"
     label: "Singularity image to run"
-    value: "ngs_v1.1.sif"
-    options:
-      - [ "ngs_v1.1.sif", "/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif" ]
-      - [ "docker://unigebsp/ngs", "docker://unigebsp/ngs" ]
-      - [ "docker://bioconductor/bioconductor_docker:RELEASE_3_18", "docker://bioconductor/bioconductor_docker:RELEASE_3_18" ]
-      - [ "docker://rocker/rstudio:4.3.2", "docker://rocker/rstudio:4.3.2" ]
+    value: "/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif"
+
+  # image:
+  #   widget: select
+  #   label: "Singularity image to run"
+  #   value: "ngs_v1.1.sif"
+  #   options:
+  #     - [ "ngs_v1.1.sif", "/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif" ]
+  #     - [ "docker://unigebsp/ngs", "docker://unigebsp/ngs" ]
+  #     - [ "docker://bioconductor/bioconductor_docker:RELEASE_3_18", "docker://bioconductor/bioconductor_docker:RELEASE_3_18" ]
+  #     - [ "docker://rocker/rstudio:4.3.2", "docker://rocker/rstudio:4.3.2" ]
       
       
