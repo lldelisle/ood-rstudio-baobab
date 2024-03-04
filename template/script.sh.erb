@@ -16,8 +16,8 @@ singularity exec \
     --bind "$(realpath ~/scratch)" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var-lib-rstudio-server:/var/lib/rstudio-server" \
-    --bind "${workdir}/etc/logging.conf:/etc/rstudio/logging.conf \
-    --bind "${workdir}/etc/database.conf:/etc/rstudio/database.conf \
+    --bind "${workdir}/etc/logging.conf:/etc/rstudio/logging.conf" \
+    --bind "${workdir}/etc/database.conf:/etc/rstudio/database.conf" \
     "<%= context.image %>" \
     rserver \
         --www-port=${port} \
