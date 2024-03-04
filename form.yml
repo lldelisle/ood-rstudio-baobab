@@ -40,6 +40,12 @@ attributes:
     widget: "text_field"
     label: "Singularity image to run"
     value: "/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif"
+    help: |
+      Example value:
+      
+      - `docker://unigebsp/ngs`
+      - `docker://bioconductor/bioconductor_docker:RELEASE_3_18`
+      - `docker://rocker/rstudio:4.3.2`
 
   # image:
   #   widget: select
