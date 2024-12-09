@@ -6,6 +6,8 @@ form:
   - time
   - mem_gb
   - cpus
+  - my_account
+  - my_email
 attributes:
   time:
     widget: "text_field"
@@ -39,6 +41,18 @@ attributes:
       - `docker://unigebsp/ngs`
       - `docker://bioconductor/bioconductor_docker:RELEASE_3_18`
       - `docker://rocker/rstudio:4.3.2`
+
+  my_account:
+    widget: "text_field"
+    label: "Account to charge for this job"
+    value: ""
+    help: "Leave it empty if you want to use your default account."
+
+  my_email:
+    widget: "text_field"
+    label: "Email address to write to when the job start"
+    value: ""
+    help: "Leave it empty if you don't want to receive any email."
 
   # image:
   #   widget: select
