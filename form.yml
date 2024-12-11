@@ -13,6 +13,12 @@ attributes:
     widget: "text_field"
     label: "Running time [format: dd-hh:mm:ss]"
     value: "03:00:00"
+    help: |
+      Keep in mind the time limit of each partition:
+      - debug-cpu is max 15 minutes
+      - shared-cpu is max 12 hours
+      - public-cpu is max 4 days
+      - ... More info on https://doc.eresearch.unige.ch/hpc/slurm#which_partition_for_my_job
 
   mem_gb:
     widget: "number_field"
