@@ -3,7 +3,7 @@
 set -x
 
 other_bind=""
-other_env=""
+rsession_path="/usr/lib/rstudio-server/bin/rsession"
 
 # Mount smb if specified:
 if [ ! -z "<%= context.smb_mount %>" ]; then
@@ -16,9 +16,18 @@ mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var-lib-rstudio-server
 
 # Isolate if project is set:
 if [ ! -z "<%= context.project %>" ]; then
+    # Isolate packages installation:
     LIBDIR=${HOME}/"<%= context.project %>"/R/
     mkdir -p $LIBDIR
-    other_env="$other_env --env R_LIBS_USER=${LIBDIR}"
+    cat > ${workdir}/rsession.sh <<END
+    #!/bin/sh
+    export R_LIBS_USER=${LIBDIR}
+    exec /usr/lib/rstudio-server/bin/rsession "\${@}"
+    END
+    chmod +x ${workdir}/rsession.sh
+    other_bind="$other_bind --bind ${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
+    rsession_path="/etc/rstudio/rsession.sh"
+    # Isolate session
     other_bind="$other_bind --bind ${HOME}/"<%= context.project %>"/rstudio:${HOME}/.local/share/rstudio/"
     mkdir -p ${HOME}/"<%= context.project %>"/rstudio
 fi
@@ -29,7 +38,7 @@ singularity exec \
     --env RSTUDIO_SESSION_TIMEOUT=0 \
     --env USER="$(id -un)" \
     --env PASSWORD="${RSTUDIO_PASSWORD}" \
-    $other_env --bind "/scratch:/tmp" \
+    --bind "/scratch:/tmp" \
     --bind "/acanas/m-BioinfoSupport" \
     --bind "$(realpath ~/scratch)" \
     --bind "${workdir}/run:/run" \
@@ -45,4 +54,4 @@ singularity exec \
         --auth-pam-helper-path=pam-helper \
         --auth-stay-signed-in-days=30 \
         --auth-timeout-minutes=0 \
-        --rsession-path=/usr/lib/rstudio-server/bin/rsession
+        --rsession-path=$rsession_path
