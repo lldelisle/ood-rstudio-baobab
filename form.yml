@@ -9,6 +9,7 @@ form:
   - my_account
   - my_email
   - smb_mount
+  - project
 attributes:
   time:
     widget: "text_field"
@@ -71,6 +72,18 @@ attributes:
       This requires to have a .credentials file in your home
       Like described [here](https://doc.eresearch.unige.ch/hpc/storage_on_hpc#nasac).
       Leave it empty if you don't want to mount any smb
+
+  project:
+    widget: "text_field"
+    label: "Project name (no space)"
+    value: ""
+    help:  |
+      Very useful to 'isolate' a RStudio session:
+
+      - the directory where new packages are installed is isolated
+      - the session is isolated so you can run multiple RStudio jobs without interference
+      
+      Leave it empty if you don't want to isolate this session
 
   # image:
   #   widget: select

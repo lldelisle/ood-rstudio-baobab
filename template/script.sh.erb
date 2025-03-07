@@ -2,13 +2,33 @@
 
 set -x
 
+other_bind=""
+rsession_path="/usr/lib/rstudio-server/bin/rsession"
+
 # Mount smb if specified:
 if [ ! -z "<%= context.smb_mount %>" ]; then
     dbus-launch gio mount "<%= context.smb_mount %>" < $HOME/.credentials
+    other_bind="$other_bind --bind /run/user/$(id -u)/gvfs:$HOME/gvfs"
 fi
 
 workdir="<%= session.staged_root %>"
 mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var-lib-rstudio-server
+
+# Isolate if project is set:
+if [ ! -z "<%= context.project %>" ]; then
+    # Isolate packages installation:
+    LIBDIR=${HOME}/"<%= context.project %>"/R/
+    mkdir -p $LIBDIR
+    echo '#!/bin/sh' > ${workdir}/rsession.sh
+    echo "export R_LIBS_USER=${LIBDIR}" >> ${workdir}/rsession.sh
+    echo 'exec /usr/lib/rstudio-server/bin/rsession "${@}"' >> ${workdir}/rsession.sh
+    chmod +x ${workdir}/rsession.sh
+    other_bind="$other_bind --bind ${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
+    rsession_path="/etc/rstudio/rsession.sh"
+    # Isolate session
+    other_bind="$other_bind --bind ${HOME}/"<%= context.project %>"/rstudio:${HOME}/.local/share/rstudio/"
+    mkdir -p ${HOME}/"<%= context.project %>"/rstudio
+fi
 
 singularity exec \
     --cleanenv \
@@ -19,12 +39,11 @@ singularity exec \
     --bind "/scratch:/tmp" \
     --bind "/acanas/m-BioinfoSupport" \
     --bind "$(realpath ~/scratch)" \
-    --bind "/run/user/$(id -u)" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var-lib-rstudio-server:/var/lib/rstudio-server" \
     --bind "${workdir}/etc/logging.conf:/etc/rstudio/logging.conf" \
     --bind "${workdir}/etc/database.conf:/etc/rstudio/database.conf" \
-    "<%= context.image %>" \
+    $other_bind "<%= context.image %>" \
     rserver \
         --www-port=${port} \
         --server-user="$USER" \
@@ -33,4 +52,4 @@ singularity exec \
         --auth-pam-helper-path=pam-helper \
         --auth-stay-signed-in-days=30 \
         --auth-timeout-minutes=0 \
-        --rsession-path=/usr/lib/rstudio-server/bin/rsession
+        --rsession-path=$rsession_path
