@@ -79,8 +79,10 @@ attributes:
     value: ""
     help:  |
       Very useful to 'isolate' a RStudio session:
+
       - the directory where new packages are installed is isolated
       - the session is isolated so you can run multiple RStudio jobs without interference
+      
       Leave it empty if you don't want to isolate this session
 
   # image:
