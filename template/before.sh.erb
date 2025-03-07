@@ -2,11 +2,6 @@
 
 set -x
 
-# Mount smb if specified:
-if [ ! -z "<%= context.smb_mount %>" ]; then
-    dbus-launch gio mount "<%= context.smb_mount %>" <.credentials
-fi
-
 # Find available port to run server on
 port="$(find_port ${host})"
 password="$(create_passwd 16)"

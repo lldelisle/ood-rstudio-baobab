@@ -2,6 +2,11 @@
 
 set -x
 
+# Mount smb if specified:
+if [ ! -z "<%= context.smb_mount %>" ]; then
+    dbus-launch gio mount "<%= context.smb_mount %>" <.credentials
+fi
+
 workdir="<%= session.staged_root %>"
 mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var-lib-rstudio-server
 
