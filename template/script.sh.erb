@@ -14,6 +14,7 @@ singularity exec \
     --bind "/scratch:/tmp" \
     --bind "/acanas/m-BioinfoSupport" \
     --bind "$(realpath ~/scratch)" \
+    --bind "/run/user/$(id -u)" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var-lib-rstudio-server:/var/lib/rstudio-server" \
     --bind "${workdir}/etc/logging.conf:/etc/rstudio/logging.conf" \
