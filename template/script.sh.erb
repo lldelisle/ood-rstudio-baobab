@@ -21,7 +21,7 @@ if [ ! -z "<%= context.project %>" ]; then
     mkdir -p $LIBDIR
     echo '#!/bin/sh' > ${workdir}/rsession.sh
     echo "export R_LIBS_USER=${LIBDIR}" >> ${workdir}/rsession.sh
-    echo 'exec /usr/lib/rstudio-server/bin/rsession "\${@}"' >> ${workdir}/rsession.sh
+    echo 'exec /usr/lib/rstudio-server/bin/rsession "${@}"' >> ${workdir}/rsession.sh
     chmod +x ${workdir}/rsession.sh
     other_bind="$other_bind --bind ${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
     rsession_path="/etc/rstudio/rsession.sh"
