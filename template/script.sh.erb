@@ -2,6 +2,11 @@
 
 set -x
 
+# Mount smb if specified:
+if [ ! -z "<%= context.smb_mount %>" ]; then
+    dbus-launch gio mount "<%= context.smb_mount %>" < $HOME/.credentials
+fi
+
 workdir="<%= session.staged_root %>"
 mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var-lib-rstudio-server
 
@@ -14,6 +19,7 @@ singularity exec \
     --bind "/scratch:/tmp" \
     --bind "/acanas/m-BioinfoSupport" \
     --bind "$(realpath ~/scratch)" \
+    --bind "/run/user/$(id -u)" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var-lib-rstudio-server:/var/lib/rstudio-server" \
     --bind "${workdir}/etc/logging.conf:/etc/rstudio/logging.conf" \

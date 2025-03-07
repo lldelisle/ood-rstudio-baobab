@@ -8,6 +8,7 @@ form:
   - cpus
   - my_account
   - my_email
+  - smb_mount
 attributes:
   time:
     widget: "text_field"
@@ -60,6 +61,16 @@ attributes:
     label: "Email address to write to when the job start"
     value: ""
     help: "Leave it empty if you don't want to receive any email."
+
+  smb_mount:
+    widget: "text_field"
+    label: "server smb you want to mount (for example NASAC)"
+    value: ""
+    help:  |
+      Example value: `smb://nasac-m2.unige.ch/m-AndreyLab`
+      This requires to have a .credentials file in your home
+      Like described [here](https://doc.eresearch.unige.ch/hpc/storage_on_hpc#nasac).
+      Leave it empty if you don't want to mount any smb
 
   # image:
   #   widget: select
