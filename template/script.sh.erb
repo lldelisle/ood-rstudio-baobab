@@ -10,6 +10,15 @@ fi
 workdir="<%= session.staged_root %>"
 mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var-lib-rstudio-server
 
+# Isolate if project is set:
+if [ ! -z "<%= context.project %>" ]; then
+    LIBDIR=${HOME}/"<%= context.project %>"/R/
+    mkdir -p $LIBDIR
+    export APPTAINER_R_LIBS_USER=${LIBDIR}
+    export APPTAINER_BIND=${HOME}/"<%= context.project %>"/rstudio:${HOME}/.local/share/rstudio/
+    mkdir -p ${HOME}/"<%= context.project %>"/rstudio
+fi
+
 singularity exec \
     --cleanenv \
     --env OMP_NUM_THREADS=<%= context.cpus %> \
