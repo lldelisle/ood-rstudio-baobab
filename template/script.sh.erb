@@ -19,11 +19,10 @@ if [ ! -z "<%= context.project %>" ]; then
     # Isolate packages installation:
     LIBDIR=${HOME}/"<%= context.project %>"/R/
     mkdir -p $LIBDIR
-    cat > ${workdir}/rsession.sh <<END
-    #!/bin/sh
-    export R_LIBS_USER=${LIBDIR}
-    exec /usr/lib/rstudio-server/bin/rsession "\${@}"
-    END
+    echo '#!/bin/sh
+export R_LIBS_USER=${LIBDIR}
+exec /usr/lib/rstudio-server/bin/rsession "\${@}"
+' > ${workdir}/rsession.sh
     chmod +x ${workdir}/rsession.sh
     other_bind="$other_bind --bind ${workdir}/rsession.sh:/etc/rstudio/rsession.sh"
     rsession_path="/etc/rstudio/rsession.sh"
