@@ -2,9 +2,13 @@
 
 set -x
 
+other_bind=""
+other_env=""
+
 # Mount smb if specified:
 if [ ! -z "<%= context.smb_mount %>" ]; then
     dbus-launch gio mount "<%= context.smb_mount %>" < $HOME/.credentials
+    other_bind="$other_bind --bind /run/user/$(id -u)/gvfs:$HOME/gvfs"
 fi
 
 workdir="<%= session.staged_root %>"
@@ -14,8 +18,8 @@ mkdir -p -m 700 ${workdir}/run ${workdir}/logs ${workdir}/var-lib-rstudio-server
 if [ ! -z "<%= context.project %>" ]; then
     LIBDIR=${HOME}/"<%= context.project %>"/R/
     mkdir -p $LIBDIR
-    export APPTAINER_R_LIBS_USER=${LIBDIR}
-    export APPTAINER_BIND=${HOME}/"<%= context.project %>"/rstudio:${HOME}/.local/share/rstudio/
+    other_env="$other_env --env R_LIBS_USER=${LIBDIR}"
+    other_bind="$other_bind --bind ${HOME}/"<%= context.project %>"/rstudio:${HOME}/.local/share/rstudio/"
     mkdir -p ${HOME}/"<%= context.project %>"/rstudio
 fi
 
@@ -25,15 +29,14 @@ singularity exec \
     --env RSTUDIO_SESSION_TIMEOUT=0 \
     --env USER="$(id -un)" \
     --env PASSWORD="${RSTUDIO_PASSWORD}" \
-    --bind "/scratch:/tmp" \
+    $other_env --bind "/scratch:/tmp" \
     --bind "/acanas/m-BioinfoSupport" \
     --bind "$(realpath ~/scratch)" \
-    --bind "/run/user/$(id -u)" \
     --bind "${workdir}/run:/run" \
     --bind "${workdir}/var-lib-rstudio-server:/var/lib/rstudio-server" \
     --bind "${workdir}/etc/logging.conf:/etc/rstudio/logging.conf" \
     --bind "${workdir}/etc/database.conf:/etc/rstudio/database.conf" \
-    "<%= context.image %>" \
+    $other_bind "<%= context.image %>" \
     rserver \
         --www-port=${port} \
         --server-user="$USER" \
