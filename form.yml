@@ -9,6 +9,7 @@ form:
   - my_account
   - my_email
   - smb_mount
+  - project
 attributes:
   time:
     widget: "text_field"
