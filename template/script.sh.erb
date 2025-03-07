@@ -4,7 +4,7 @@ set -x
 
 # Mount smb if specified:
 if [ ! -z "<%= context.smb_mount %>" ]; then
-    dbus-launch gio mount "<%= context.smb_mount %>" <.credentials
+    dbus-launch gio mount "<%= context.smb_mount %>" < $HOME/.credentials
 fi
 
 workdir="<%= session.staged_root %>"
