@@ -6,11 +6,22 @@ form:
   - time
   - mem_gb
   - cpus
+  - my_account
+  - my_email
+  - smb_mount
+  - project
 attributes:
   time:
     widget: "text_field"
     label: "Running time [format: dd-hh:mm:ss]"
     value: "03:00:00"
+    help: |
+      Keep in mind the time limit of each partition:
+      
+      - debug-cpu is max 15 minutes
+      - shared-cpu is max 12 hours
+      - public-cpu is max 4 days
+      - ... More info on https://doc.eresearch.unige.ch/hpc/slurm#which_partition_for_my_job
 
   mem_gb:
     widget: "number_field"
@@ -39,6 +50,40 @@ attributes:
       - `docker://unigebsp/ngs`
       - `docker://bioconductor/bioconductor_docker:RELEASE_3_18`
       - `docker://rocker/rstudio:4.3.2`
+
+  my_account:
+    widget: "text_field"
+    label: "Account to charge for this job"
+    value: ""
+    help: "Leave it empty if you want to use your default account."
+
+  my_email:
+    widget: "text_field"
+    label: "Email address to write to when the job start"
+    value: ""
+    help: "Leave it empty if you don't want to receive any email."
+
+  smb_mount:
+    widget: "text_field"
+    label: "server smb you want to mount (for example NASAC)"
+    value: ""
+    help:  |
+      Example value: `smb://nasac-m2.unige.ch/m-AndreyLab`
+      This requires to have a .credentials file in your home
+      Like described [here](https://doc.eresearch.unige.ch/hpc/storage_on_hpc#nasac).
+      Leave it empty if you don't want to mount any smb
+
+  project:
+    widget: "text_field"
+    label: "Project name (no space)"
+    value: ""
+    help:  |
+      Very useful to 'isolate' a RStudio session:
+
+      - the directory where new packages are installed is isolated
+      - the session is isolated so you can run multiple RStudio jobs without interference
+      
+      Leave it empty if you don't want to isolate this session
 
   # image:
   #   widget: select
