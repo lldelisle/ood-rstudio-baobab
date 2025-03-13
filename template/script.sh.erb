@@ -8,7 +8,7 @@ rsession_path="/usr/lib/rstudio-server/bin/rsession"
 # Mount smb if specified:
 if [ ! -z "<%= context.smb_mount %>" ]; then
     dbus-launch gio mount "<%= context.smb_mount %>" < $HOME/.credentials
-    other_bind="$other_bind --bind /run/user/$(id -u)/gvfs:$HOME/gvfs"
+    other_bind="$other_bind --bind /run/user/$(id -u)/gvfs:/run/user/$(id -u)/gvfs"
 fi
 
 workdir="<%= session.staged_root %>"
