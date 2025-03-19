@@ -1,5 +1,7 @@
 ---
-cluster: "baobab"
+cluster:
+  - baobab
+  - bamboo
 form:
   - image
   - auto_queues
