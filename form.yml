@@ -1,20 +1,25 @@
 ---
-cluster: "baobab"
+cluster:
+  - baobab
+  - yggdrasil
+  - bamboo
+
 form:
   - image
   - auto_queues
   - time
   - mem_gb
   - cpus
-  - my_account
-  - my_email
+  - auto_accounts
+  - bc_email_on_started
   - smb_mount
+  - deactivate_conda
   - project
 attributes:
   time:
     widget: "text_field"
     label: "Running time [format: dd-hh:mm:ss]"
-    value: "03:00:00"
+    value: "00:15:00"
     help: |
       Keep in mind the time limit of each partition:
       
@@ -30,7 +35,10 @@ attributes:
     min: 4
     max: 1024
     step: 4
-    
+  auto_queues:
+    help: |
+      For guidance on selecting the SLURM partition, see our [documentation].
+      [Documentation]: https://doc.eresearch.unige.ch/hpc/slurm#partitions
   cpus:
     widget: "number_field"
     label: "Number of core"
@@ -44,24 +52,15 @@ attributes:
     label: "Singularity image to run"
     value: "/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif"
     help: |
-      Example value:
-      
-      - `/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif`
+      **Tips:** If you use a docker repository instead of a sif image, you won't be able to connect to the Rstudio server until the image pull is complete.<br><br>
+      **Example value:**
+
+      - `/acanas/m-BioinfoSupport/singularity/ngs_v1.1.sif` (FullPath to Private image on Unige HPC Cluster)
       - `docker://unigebsp/ngs`
       - `docker://bioconductor/bioconductor_docker:RELEASE_3_18`
-      - `docker://rocker/rstudio:4.3.2`
-
-  my_account:
-    widget: "text_field"
-    label: "Account to charge for this job"
-    value: ""
-    help: "Leave it empty if you want to use your default account."
-
-  my_email:
-    widget: "text_field"
-    label: "Email address to write to when the job start"
-    value: ""
-    help: "Leave it empty if you don't want to receive any email."
+      - `docker://rocker/rstudio:4.3.2` (Public Image)
+      - `Coming Soon: a shared sif image available on scratch shared directory`
+    display: true
 
   smb_mount:
     widget: "text_field"
@@ -69,9 +68,21 @@ attributes:
     value: ""
     help:  |
       Example value: `smb://nasac-m2.unige.ch/m-AndreyLab`
-      This requires to have a .credentials file in your home
-      Like described [here](https://doc.eresearch.unige.ch/hpc/storage_on_hpc#nasac).
+
+      This requires to have a .credentials file in your home like described [here](https://doc.eresearch.unige.ch/hpc/storage_on_hpc#nasac).
+
       Leave it empty if you don't want to mount any smb
+    display: true
+
+  deactivate_conda:
+    widget: "check_box"
+    label: "Deactivate conda"
+    checked_value: 1
+    unchecked_value: 0
+    help: |
+      If you initialized conda and an environment is automatically activated at login, this can prevent a correct mounting of the smb.
+      
+      Therefore, it is recommanded to check this box if this is your case.
 
   project:
     widget: "text_field"
@@ -84,6 +95,7 @@ attributes:
       - the session is isolated so you can run multiple RStudio jobs without interference
       
       Leave it empty if you don't want to isolate this session
+    display: true
 
   # image:
   #   widget: select

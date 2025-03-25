@@ -5,6 +5,11 @@ set -x
 other_bind=""
 rsession_path="/usr/lib/rstudio-server/bin/rsession"
 
+# Conda deactivate has been asked:
+if [ "<%= context.deactivate_conda %>" = "1" ]; then
+    conda deactivate || echo "no need to deactivate conda"
+fi
+
 # Mount smb if specified:
 if [ ! -z "<%= context.smb_mount %>" ]; then
     dbus-launch gio mount "<%= context.smb_mount %>" < $HOME/.credentials

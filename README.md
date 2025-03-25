@@ -14,3 +14,6 @@ mkdir -p ~/ondemand/dev && git -C ~/ondemand/dev clone https://github.com/Bioinf
 
  3) Connect to http://openondemand.baobab.hpc.unige.ch/
 
+# App deployed on the HPC at UNIGE
+
+The code of the app deployed on HPC at UNIGE is [on GitLab](https://gitlab.unige.ch/hpc/unige-openondemand).
